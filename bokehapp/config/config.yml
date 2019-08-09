@@ -1,0 +1,27 @@
+#fichier de configuration
+
+sensors:
+ sensor1: {
+  name_sensor: eGauge47536 ,
+  iplocal: 157.159.44.254 ,
+  GPS_lat: 48.6227 ,
+  GPS_long: 2.4434800000000223 ,
+  Ville: Evry ,
+  CP: 91011 ,
+  Rue: 5 rue Charles Fourier,
+  Registre: [P_global|,P_ground_floor|, P_123|, P_456|, P_heat|,CT15_Amperage, CT14_Amperage, CT13_Amperage, CT12_Amperage, CT11_Amperage, CT10_Amperage, CT9_Amperage, CT8_Amperage, CT7_Amperage, CT6_Amperage, CT5_Amperage, CT4_Amperage, CT3_Amperage, CT2_Amperage, CT1_Amperage, L1_Voltage,  L2_Voltage, L3_Voltage]
+ }
+
+
+database:
+ database1: {
+  name: Peper ,
+  port: 8086 ,
+  ip: 157.159.124.184 ,
+  username: admin_influx,
+  password: admin
+ }
+
+
+
+
