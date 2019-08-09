@@ -10,7 +10,7 @@ This app is divided in 2 pages:
 
 - The second one has a plot. Like in the fisrt page you have the possibility to choose: the sensor, the registers and the time interval.  
 
-![Alt text](/Users/arnaud/Downloads/readme_screenshot_plot.png?raw=true "Page2")
+![readme_screenshot_plot](https://user-images.githubusercontent.com/52416887/62783112-00b52400-babc-11e9-9de6-e96e6565cb6e.png)
 
 ## Demo
 
