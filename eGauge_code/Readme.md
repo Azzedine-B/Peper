@@ -29,7 +29,7 @@ Enter an InfluxQL query
 
 Then you need to change the HTTP configuration of your influxdb database. In Linux this file is located under the path /etc/influxdb/influxdb.conf. Open this file with a text editor and go to the http part to modify the file like the below screenshot. You have to replace the IP address '157.159.124.184' by your IP address or if you only want to run the program locally just put ':8086' or '127.0.0.1:8086'. You also have to modify the configuration file with your ip adress or with localhost (see next section).
 
-![Alt text](/Users/arnaud/Downloads/readme_screen.png?raw=true "Title")
+![readme_screen](https://user-images.githubusercontent.com/52416887/62783181-26422d80-babc-11e9-9add-e95af5c4e123.png)
 
 ### Configuration file
 
