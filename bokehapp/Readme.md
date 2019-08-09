@@ -6,7 +6,7 @@ The data are time-series data which come from eGauge sensors and are stored in a
 This app is divided in 2 pages:
 - The first one consists of a Datatable. On the right side a drop-down menu allows to select wich eGauge sensor you want to choose. Then you can chose which register of the sensor you want to display and also the time interval, ie the starting and ending dates. A button allows to download the displayed data in CSV format 
 
-![Alt text](/Users/arnaud/Downloads/readme_screenshot_datatable.png?raw=true "Page1")
+![readme_screenshot_datatable](https://user-images.githubusercontent.com/52416887/62783032-ce0b2b80-babb-11e9-9ce0-a733c4fb4b61.png)
 
 - The second one has a plot. Like in the fisrt page you have the possibility to choose: the sensor, the registers and the time interval.  
 
