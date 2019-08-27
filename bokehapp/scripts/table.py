@@ -15,16 +15,16 @@ from datetime import datetime
 from influxdb import InfluxDBClient
 from influxdb import DataFrameClient
 from threading import Timer
-
+from os.path import dirname, join
 from bokeh.palettes import Plasma256
 
 from bokeh.plotting import figure, show
 from bokeh.io import output_file, show, output_notebook, push_notebook, curdoc
-from bokeh.models import CategoricalColorMapper, HoverTool, ColumnDataSource, Panel, Plot, LinearAxis, Grid
+from bokeh.models import CategoricalColorMapper, HoverTool, ColumnDataSource, Panel, Plot, LinearAxis, Grid,CustomJS
 from bokeh.layouts import column
 
 
-from bokeh.models.widgets import CheckboxGroup, Slider, RangeSlider, Tabs, Button, TextAreaInput, TableColumn, DataTable,DateFormatter, TextInput, Panel, Select
+from bokeh.models.widgets import CheckboxGroup, Slider, RangeSlider, Tabs, Button, TextAreaInput, TableColumn, DataTable,DateFormatter, TextInput, Panel, Select, NumberFormatter
 
 from bokeh.layouts import column, row, WidgetBox
 from bokeh.palettes import Category20_16, Category20_20
@@ -37,7 +37,6 @@ from bokeh.models import CDSView, IndexFilter
 
 
 def table():
-    
     
     def reading_config(path):
 
@@ -163,31 +162,11 @@ def table():
         view1 = CDSView(source=new_source, filters=[IndexFilter(indices=liste)])
         datatable.view=view1
         
-    def download():  
-        # Get the list of carriers for the graph
-        capteur_to_plot = [capteur_selection.labels[i] for i in 
-                            capteur_selection.active]
-        l=text_input.value
-        L_text=[]
-        for val in l.split('\n'):
-            L_text.append(val)
-
-        text_input_start=L_text[1]
-        text_input_end=L_text[4]
-        # make_dataset function defined earlier
-        nom_capteur=select.value
-        
-    
-        new_src = make_dataset(capteur_to_plot, text_input_start,text_input_end, nom_capteur, L_influx)
-        path='/home/rsm/Desktop/Arnaud_Debar/bokehapp_final/Folder_CSV/'+ path_input.value + '.csv'
-        
-        new_src.to_csv(path, encoding='utf-8')
-        
     #Select
     """
     WARNING : you need to change the path to your config file to run this code
     """
-    (available_name, available_capteur, L_influx) = reading_config("/home/rsm/Desktop/Arnaud_Debar/bokehapp_final/config/config.yml")
+    (available_name, available_capteur, L_influx) = reading_config("/home/rsm/Desktop/bokehapp_final/config/config.yml")
     select = Select(title="Select one sensor:", value=available_name[0], options=available_name)
     select.on_change('value',update)
     
@@ -199,7 +178,7 @@ def table():
     capteur_selection.on_change('active', update)
     
 
-    text_input = TextAreaInput(value='Start:\n2019-08-08 18:20:00\n  \nEnd:\n2019-08-09 10:27:00\n ', rows=5, title="Date: Year-Month-Day Hour:Minute:Second")
+    text_input = TextAreaInput(value='Start:\n2019-08-08 18:20:00\n  \nEnd:\n2019-08-08 18:27:00\n ', rows=5, title="Date: Year-Month-Day Hour:Minute:Second")
     text_input.on_change('value', update)
     
 
@@ -216,24 +195,24 @@ def table():
     
     src = make_dataset(initial_capteur, initial_text_input_start, initial_text_input_end, available_name[0], L_influx)
     source = ColumnDataSource(src)
-    
     #Make the plot
     datatable = make_table(source,src)
     
-    #Download part
-    button = Button(label="Download", button_type="success")
-    button.on_click(download)
+    #a=source.column_names
+    #a=src.to_dict('series')
+    #print(a)
     
-    text_banner = Paragraph(text='To download the displayed data, please indicate the name you want to give to the file in the box below. The file will be automatically created in CSV format in the "Folder_CSV" folder as soon as you click on the "Download" button', width=250, height=130)
-    path_input=TextInput(value="Name", title="Name of the file :")
+    #Download part
+    button = Button(label='Download', button_type='success')
+    button.callback = CustomJS(args=dict(source=source), code=open(join(dirname(__file__), "download.js")).read())
+    #text_banner = Paragraph(text='To download the displayed data, please indicate the name you want to give to the file in the box below. The file will be automatically created in CSV format in the "Folder_CSV" folder as soon as you click on the "Download" button', width=250, height=130)
+    #path_input=TextInput(value="Name", title="Name of the file :")
     
     # Put control in a single element
-    controls = WidgetBox(select, capteur_selection,text_input,text_banner,path_input,button)
+    controls = WidgetBox(select, capteur_selection,text_input,button)
     
     layout = row(controls, datatable)
     
     tab = Panel(child = layout, title = 'Summary Table')
 
     return tab
-
-
