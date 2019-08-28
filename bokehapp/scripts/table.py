@@ -198,9 +198,6 @@ def table():
     #Make the plot
     datatable = make_table(source,src)
     
-    #a=source.column_names
-    #a=src.to_dict('series')
-    #print(a)
     
     #Download part
     button = Button(label='Download', button_type='success')
