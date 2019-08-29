@@ -1,14 +1,14 @@
 # Peper project - Bokeh app linked to a InfluxDB database
 
 This code has been developed during the summer 2019 as part of the [Peper](https://dataia.eu/recherche/le-projet-peper-prediction-de-la-prosommation-denergie-renouvelable) project. This code provides a graphical interface thanks to the interactive vizualization library [Bokeh](https://bokeh.pydata.org/en/latest/).
-The data are time-series data which come from eGauge sensors and are stored in a InfluxDB database. The bokeh app performs requests on the database to produce the plots and tables. 
+The data are time-series data which come from eGauge sensors and are stored in a InfluxDB database. The bokeh app performs requests on the database to produce plots and tables. 
 
 This app is divided in 2 pages:
 - The first one consists of a Datatable. On the right side a drop-down menu allows to select wich eGauge sensor you want to choose. Then you can chose which register of the sensor you want to display and also the time interval, ie the starting and ending dates. A button allows to download the displayed data in CSV format 
 
 ![new_capture_donwload](https://user-images.githubusercontent.com/52416887/63927725-90604980-ca4e-11e9-913d-c97b78e60e35.png)
 
-- The second one has a plot. Like in the fisrt page you have the possibility to choose: the sensor, the registers and the time interval.  
+- The second one has a plot. Like in the fisrt page you have the possibility to choose: the sensor, the register and the time interval.  
 
 ![readme_screenshot_plot](https://user-images.githubusercontent.com/52416887/62783112-00b52400-babc-11e9-9de6-e96e6565cb6e.png)
 
@@ -33,7 +33,7 @@ $ pip install bokeh
 
 ### Configuration file
 
-This project use as input a configuration file in XML.
+This project use as input a configuration file in YML.
 You can see an example below :
 
 ```
