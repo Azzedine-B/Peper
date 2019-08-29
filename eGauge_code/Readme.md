@@ -33,7 +33,7 @@ Then you need to change the HTTP configuration of your influxdb database. In Lin
 
 ### Configuration file
 
-This project use as input a configuration file in XML.
+This project uses as input a configuration file in YML.
 You can see an example below :
 
 ```
@@ -59,7 +59,7 @@ database:
  }
 ```
 There are two parts in this configuration : 
-- One part is about your sensors, the two main components are the name of your eGauge which is needed to make the XML request and the registers which are present in your eGauge. For the registers, I choose the format 'name_of_the_register=unit_of_the_register', so you have to put them in this way. The other components (iplocal, GPS ...) are used as TAGS in the InfluxDB database to distinguish between several eGauge sensors. You can remove them in the config file but then you also have to remove them in the python code (see 'WARNING' comment in the function *multiple_storage*).
+- One part is about your sensor(s), the two main components are the name of your eGauge which is needed to make the XML request and the registers which are present in your eGauge. For the registers, I choose the format 'name_of_the_register=unit_of_the_register', so you have to put them in this way. The other components (iplocal, GPS ...) are used as TAGS in the InfluxDB database to distinguish between several eGauge sensors. You can remove them in the config file but then you also have to remove them in the python code (see 'WARNING' comment in the function *multiple_storage*).
 - The second part is about your database. You just have to put the name of the database, the port, the ip_address and also the id and the associated password
 
 Once you have modified your configuration file, you need to change the path to your configuration file in the python code. See the 'WARNING' comment in the function *main()*
@@ -70,7 +70,7 @@ Once you have modified your configuration file, you need to change the path to y
 
 This python code is composed of several functions
 - **reading_config** : this function is in charge to load the configuration file and return two Panda DataFrames including information about the sensors and the database
-- **Loop_function** : this function takes as input the path to the XML config file and produces the two DataFrames thanks to the function reading_config. Then the function loops over all eGauge : For each sensor two lists are build linked to the IDs of the eGauge and to the database and the function multiple_storage is called to allow the storage of the data in InfluxDB
+- **Loop_function** : this function takes as input the path to the YML config file and produces the two DataFrames thanks to the function reading_config. Then the function loops over all eGauge : For each sensor two lists are build linked to the IDs of the eGauge and to the database and the function multiple_storage is called to allow the storage of the data in InfluxDB
 - **data_sensors** : the purpose of this function is to make the API request on the sensor, recover the XML file, parse it and give a Dataframe as output. One thing to notice is the format of the request. The URL to access my eGauge was *http://eGaugeName.egauge.es/*  In case you decide to choose another address than the basic one, just change this part and keep the request after the new IP address (see 'WARNING' comment in the function *data_sensorse*). An example of request is : */cgi-bin/egauge-show?S&s=0&n=300* This request will display the values over the last 5min with a step of one second. If you need to change the request refer to the 
 [eGauge API XML manual](https://www.egauge.net/media/support/docs/egauge-xml-api.pdf)
 - **multiple_storage** : this function aims to store the sensor values in the Database. For that, it retrieves the DataFrame containing the values of the sensor thanks to the function data_sensors and stores this DataFrame in the influxDB database.
