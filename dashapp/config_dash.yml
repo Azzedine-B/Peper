@@ -1,0 +1,17 @@
+#fichier de configuration
+
+sensors:
+ sensor1: {
+  name: eGauge47536,
+  iplocal: 'localhost',
+  Registre: [P_global|,P_ground_floor|, P_123|, P_456|, P_heat|,CT15_Amperage, CT14_Amperage, CT13_Amperage, CT12_Amperage, CT11_Amperage, CT10_Amperage, CT9_Amperage, CT8_Amperage, CT7_Amperage, CT6_Amperage, CT5_Amperage, CT4_Amperage, CT3_Amperage, CT2_Amperage, CT1_Amperage, L1_Voltage,  L2_Voltage, L3_Voltage]
+ }
+
+database:
+ database: {
+  name: egauge,
+  port: 8086 ,
+  ip: 'localhost',
+  identifiant: "",
+  mdp: ""
+ }
